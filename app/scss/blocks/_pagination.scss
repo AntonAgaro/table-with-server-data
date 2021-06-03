@@ -1,0 +1,14 @@
+.pagination {
+    margin-top: 20px;
+    gap: 10px;
+    flex-wrap: wrap;
+    &__item {
+        border: 1px solid black;
+        padding: 10px;
+        cursor: pointer;
+        &--active {
+            color: #9370DB;
+            border-color: #9370DB;
+        }
+    }
+}
