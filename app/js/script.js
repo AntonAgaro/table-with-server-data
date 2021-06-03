@@ -90,78 +90,10 @@
 /*!************************!*\
   !*** ./app/js/main.js ***!
   \************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_wrapper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/wrapper */ "./app/js/modules/wrapper.js");
-/* harmony import */ var _modules_title__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/title */ "./app/js/modules/title.js");
-/* harmony import */ var _modules_title2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/title2 */ "./app/js/modules/title2.js");
+/*! no static exports found */
+/***/ (function(module, exports) {
 
 
-
-window.addEventListener('DOMContentLoaded', function () {
-  "use strict";
-
-  Object(_modules_wrapper__WEBPACK_IMPORTED_MODULE_0__["default"])('.wrapper', 'blue');
-  Object(_modules_title__WEBPACK_IMPORTED_MODULE_1__["default"])('.title', 'yellow');
-  Object(_modules_title2__WEBPACK_IMPORTED_MODULE_2__["default"])('h2', 'green');
-});
-
-/***/ }),
-
-/***/ "./app/js/modules/title.js":
-/*!*********************************!*\
-  !*** ./app/js/modules/title.js ***!
-  \*********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var changeTitle = function changeTitle(titleSelector, color) {
-  var title = document.querySelector(titleSelector);
-  title.style.color = "".concat(color);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (changeTitle);
-
-/***/ }),
-
-/***/ "./app/js/modules/title2.js":
-/*!**********************************!*\
-  !*** ./app/js/modules/title2.js ***!
-  \**********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var changeSmallTitle = function changeSmallTitle(titleSelector, color) {
-  var titleSmall = document.querySelector(titleSelector);
-  titleSmall.style.color = "".concat(color);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (changeSmallTitle);
-
-/***/ }),
-
-/***/ "./app/js/modules/wrapper.js":
-/*!***********************************!*\
-  !*** ./app/js/modules/wrapper.js ***!
-  \***********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var changeWrapper = function changeWrapper(wrapperSelector, color) {
-  var wrapper = document.querySelector(wrapperSelector);
-  wrapper.style.backgroundColor = "".concat(color);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (changeWrapper);
 
 /***/ })
 

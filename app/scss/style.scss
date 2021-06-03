@@ -1,7 +1,8 @@
 @import './global/vars';
 @import './global/fonts';
 @import './global/reset';
-@import './global/libs';
 @import './global/global';
 
-
+//blocks
+@import './blocks/table';
+@import './blocks/header';
