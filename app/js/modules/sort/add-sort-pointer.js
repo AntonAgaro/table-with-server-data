@@ -13,7 +13,6 @@ export default class SortPointer {
         }
         
         parent.append(pointer);
-        console.log(findPointer);
         
     }
 }

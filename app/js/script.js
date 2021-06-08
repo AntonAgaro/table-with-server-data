@@ -101,9 +101,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var core_js_modules_es_array_sort_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.array.sort.js */ "./node_modules/core-js/modules/es.array.sort.js");
 /* harmony import */ var core_js_modules_es_array_sort_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_sort_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _modules_button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/button */ "./app/js/modules/button.js");
-/* harmony import */ var _modules_filter__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/filter */ "./app/js/modules/filter.js");
-/* harmony import */ var _modules_sort_sort__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/sort/sort */ "./app/js/modules/sort/sort.js");
+/* harmony import */ var _modules_add_new_element_add_new_tr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/add-new-element/add-new-tr */ "./app/js/modules/add-new-element/add-new-tr.js");
+/* harmony import */ var _modules_add_new_element_show_modal_window__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/add-new-element/show-modal-window */ "./app/js/modules/add-new-element/show-modal-window.js");
+/* harmony import */ var _modules_button__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/button */ "./app/js/modules/button.js");
+/* harmony import */ var _modules_filter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/filter */ "./app/js/modules/filter.js");
+/* harmony import */ var _modules_sort_sort__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/sort/sort */ "./app/js/modules/sort/sort.js");
+
+
 
 
 
@@ -111,30 +115,196 @@ __webpack_require__.r(__webpack_exports__);
 
 
 window.addEventListener('DOMContentLoaded', function () {
-  var bigDataBtn = new _modules_button__WEBPACK_IMPORTED_MODULE_3__["default"]('#big-data', 'http://www.filltext.com/?rows=1000&id={number|1000}&firstName={firstName}&delay=3&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}', '#table-wrapper', '#pagination', 15);
+  var bigDataBtn = new _modules_button__WEBPACK_IMPORTED_MODULE_5__["default"]('#big-data', 'http://www.filltext.com/?rows=1000&id={number|1000}&firstName={firstName}&delay=3&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}', '#table-wrapper', '#pagination', 15);
   bigDataBtn.bindBtn();
-  var littleDataBtn = new _modules_button__WEBPACK_IMPORTED_MODULE_3__["default"]('#little-data', 'http://www.filltext.com/?rows=32&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}', '#table-wrapper', '#pagination', 15);
+  var littleDataBtn = new _modules_button__WEBPACK_IMPORTED_MODULE_5__["default"]('#little-data', 'http://www.filltext.com/?rows=32&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&address={addressObject}&description={lorem|32}', '#table-wrapper', '#pagination', 15);
   littleDataBtn.bindBtn();
   document.addEventListener('click', function (event) {
     var target = event.target; //Filter function
 
     if (target.matches('#filter-btn')) {
-      _modules_filter__WEBPACK_IMPORTED_MODULE_4__["default"].filter('.table', '#filter-input');
+      _modules_filter__WEBPACK_IMPORTED_MODULE_6__["default"].filter('.table', '#filter-input');
     } //Sort function
 
 
     if (target.matches('th')) {
       var ths = document.querySelectorAll('th');
       ths.forEach(function (item, index) {
-        if (item == target && (index == 0 || index == 4 || index == 8)) {
-          _modules_sort_sort__WEBPACK_IMPORTED_MODULE_5__["Sort"].sort('.table', index);
+        if (item == target && (index == 0 || index == 8)) {
+          _modules_sort_sort__WEBPACK_IMPORTED_MODULE_7__["Sort"].sort('.table', index);
+        } else if (index == 4) {
+          return;
         } else if (item == target && (index == 1 || index == 2 || index == 3 || index == 5 || index == 6 || index == 7)) {
-          _modules_sort_sort__WEBPACK_IMPORTED_MODULE_5__["Sort"].lettersSort('.table', index);
+          _modules_sort_sort__WEBPACK_IMPORTED_MODULE_7__["Sort"].lettersSort('.table', index);
         }
       });
+    } //Create and remove modalWindow 
+
+
+    if (target.matches('#add-btn')) {
+      _modules_add_new_element_show_modal_window__WEBPACK_IMPORTED_MODULE_4__["default"].createModalWindow('.table');
+    }
+
+    if (target.matches('.overlay')) {
+      _modules_add_new_element_show_modal_window__WEBPACK_IMPORTED_MODULE_4__["default"].removeModalWindow('.overlay');
+    } //Add new Element
+
+
+    if (target.matches('#add-button')) {
+      _modules_add_new_element_add_new_tr__WEBPACK_IMPORTED_MODULE_3__["default"].createNewTr('.table');
+      _modules_add_new_element_show_modal_window__WEBPACK_IMPORTED_MODULE_4__["default"].removeModalWindow('.overlay');
     }
   });
 });
+
+/***/ }),
+
+/***/ "./app/js/modules/add-new-element/add-new-tr.js":
+/*!******************************************************!*\
+  !*** ./app/js/modules/add-new-element/add-new-tr.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return AddNewTr; });
+/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.filter.js */ "./node_modules/core-js/modules/es.array.filter.js");
+/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_array_from_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.array.from.js */ "./node_modules/core-js/modules/es.array.from.js");
+/* harmony import */ var core_js_modules_es_array_from_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_from_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var AddNewTr = /*#__PURE__*/function () {
+  function AddNewTr() {
+    _classCallCheck(this, AddNewTr);
+  }
+
+  _createClass(AddNewTr, null, [{
+    key: "readInputsValue",
+    value: function readInputsValue(modalWrapperSelector) {
+      var modalWrapper = document.querySelector(modalWrapperSelector);
+      var onliDivs = Array.from(modalWrapper.childNodes).filter(function (item) {
+        return item.tagName == 'DIV';
+      });
+      var allInputsValue = [];
+      onliDivs.forEach(function (item) {
+        item.childNodes.forEach(function (child) {
+          if (child.tagName == 'INPUT') {
+            allInputsValue.push(child.value);
+          }
+        });
+      });
+      return allInputsValue;
+    }
+  }, {
+    key: "createNewTr",
+    value: function createNewTr(tableSelector) {
+      var table = document.querySelector(tableSelector);
+      var tBodies = table.tBodies;
+      var newTr = document.createElement('tr');
+      AddNewTr.readInputsValue('.modal-wrapper').forEach(function (item) {
+        newTr.innerHTML += "<td>".concat(item, "</td>");
+      });
+      tBodies[0].append(newTr);
+    }
+  }]);
+
+  return AddNewTr;
+}();
+
+
+
+/***/ }),
+
+/***/ "./app/js/modules/add-new-element/show-modal-window.js":
+/*!*************************************************************!*\
+  !*** ./app/js/modules/add-new-element/show-modal-window.js ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ModalWindow; });
+/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/es.array.filter.js */ "./node_modules/core-js/modules/es.array.filter.js");
+/* harmony import */ var core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_filter_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_es_array_from_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! core-js/modules/es.array.from.js */ "./node_modules/core-js/modules/es.array.from.js");
+/* harmony import */ var core_js_modules_es_array_from_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_from_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! core-js/modules/es.string.iterator.js */ "./node_modules/core-js/modules/es.string.iterator.js");
+/* harmony import */ var core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each.js */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! core-js/modules/es.array.concat.js */ "./node_modules/core-js/modules/es.array.concat.js");
+/* harmony import */ var core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat_js__WEBPACK_IMPORTED_MODULE_4__);
+
+
+
+
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var ModalWindow = /*#__PURE__*/function () {
+  function ModalWindow() {
+    _classCallCheck(this, ModalWindow);
+  }
+
+  _createClass(ModalWindow, null, [{
+    key: "createModalWindow",
+    value: function createModalWindow(tableSelector) {
+      var table = document.querySelector(tableSelector);
+      var rows = table.rows;
+      var overlay = document.createElement('div');
+      overlay.className = 'overlay';
+      var modalWindow = document.createElement('div');
+      modalWindow.className = 'modal-window';
+      var modalWrapper = document.createElement('div');
+      modalWrapper.className = 'modal-wrapper';
+      var ths = Array.from(rows[0].childNodes).filter(function (item) {
+        return item.tagName == 'TH';
+      });
+      ths.forEach(function (item) {
+        modalWrapper.innerHTML += "\n            <div>\n                <label for=\"input-for-".concat(item.innerHTML, "\" class=\"col-form-label\">").concat(item.innerHTML, "</label>\n                    <input type=\"text\" class=\"form-control\" id=\"input-for-").concat(item.innerHTML, "\">\n            </div>\n            ");
+      });
+      var addBtn = document.createElement('button');
+      addBtn.className = 'btn btn-dark';
+      addBtn.id = 'add-button';
+      addBtn.textContent = 'Add';
+      modalWindow.append(modalWrapper);
+      modalWindow.append(addBtn);
+      overlay.append(modalWindow);
+      document.body.append(overlay);
+    }
+  }, {
+    key: "removeModalWindow",
+    value: function removeModalWindow(overlaySelector) {
+      var overlay = document.querySelector(overlaySelector);
+      overlay.remove();
+    }
+  }]);
+
+  return ModalWindow;
+}();
+
+
 
 /***/ }),
 
@@ -433,7 +603,6 @@ var SortPointer = /*#__PURE__*/function () {
       }
 
       parent.append(pointer);
-      console.log(findPointer);
     }
   }]);
 
