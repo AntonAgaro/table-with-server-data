@@ -9,8 +9,19 @@ export default class Button {
     }
 
     async uploadData() {
+        this.btn.disabled = true;
+        this.tableWrapper.innerHTML = `
+        <div class="progress">
+        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 300px" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        Loading...
+        `;
     await fetch(this.url)
-        .then(res => res.json())
+        .then(res => {
+            this.btn.disabled = false;
+            this.tableWrapper.innerHTML = '';
+            return res.json();
+        })
         .then(json => JSON.stringify(json))
         .then(obj => JSON.parse(obj))
         .then(obj => this.dataStorage = obj);
@@ -29,6 +40,15 @@ export default class Button {
     createTable(pageNumber) {
         //Clean table wrapper
         this.tableWrapper.innerHTML = '';
+        //Create Input and Search btn, Add btn
+        this.tableWrapper.innerHTML = `
+            <div class="filter-wrapper">
+            <button class="btn btn-dark" id="add-btn">Add</button>
+            <input class="form-control" id="filter-input">
+            <button class="btn btn-dark" id="filter-btn">Filter</button>
+            </div>
+        `;
+        
         // Create table
         const table = document.createElement('table');
         table.className = 'table table-dark table-bordered border border-white';

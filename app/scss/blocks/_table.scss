@@ -1,4 +1,30 @@
 .table-wrapper {
     margin-top: 20px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
+.filter-wrapper {
+    min-width: 500px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+th {
+    position: relative;
+}
+
+.pointer {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: white;
+    &--reverse {
+        transform: rotate(180deg);
+    }
+}
